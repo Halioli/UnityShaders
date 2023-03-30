@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_Phong
-  m_Shader: {fileID: 4800000, guid: f1c469cd23204b547b1999b34cb90af7, type: 3}
+  m_Name: MAT_BackfaceCulling
+  m_Shader: {fileID: 4800000, guid: 6833b153a22a5d045857c6805d13b182, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -21,11 +21,12 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 421dbf5710b5c40488c2c3f44d1c587a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 502902bf358974040b708e9ff9d20324, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _OutlineWidth: 0.15
     m_Colors:
-    - _AmbientCol: {r: 0.25, g: 0.25, b: 0.5, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

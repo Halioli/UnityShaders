@@ -3,6 +3,7 @@ Shader "Unlit/SHDR_Phong"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _AmbientCol ("Ambient light color", Color) = (0.25, 0.25, 0.5, 1)
     }
     SubShader
     {
@@ -11,6 +12,7 @@ Shader "Unlit/SHDR_Phong"
         Pass
         {
             Tags { "LightMode" = "ForwardBase" }
+
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -29,12 +31,12 @@ Shader "Unlit/SHDR_Phong"
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
                 half3 normal : NORMAL;
-                half3 viewDir : TEXCOORD1;
-                float3 vPos: TEXCOORD2;
+                float3 wPos: TEXCOORD1;
             };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            half4 _AmbientCol;
 
             v2f vert (appdata v)
             {
@@ -44,14 +46,25 @@ Shader "Unlit/SHDR_Phong"
 
                 o.normal = UnityObjectToWorldNormal(v.normal);
                 
-                o.vPos = mul(unity_ObjectToWorld, v.vertex);
-                o.viewDir = normalize(o.vPos - _WorldSpaceCameraPos);
+                o.wPos = mul(unity_ObjectToWorld, v.vertex);
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
+                
+                half3 viewDir = normalize(i.wPos - _WorldSpaceCameraPos);
+                half3 lightDir = _WorldSpaceLightPos0.xyz * (1 - _WorldSpaceLightPos0.w);
+
+                half3 ambient = half3(0, 0, 0);
+                half3 diffuse = half3(0, 0, 0);
+                half3 specular = half3(0, 0, 0);
+
+                ambient = _AmbientCol;
+                diffuse = unity_LightColor0.rgb * max(0, dot(i.normal, lightDir));
+                //specular = 
+
                 return col;
             }
             ENDCG
