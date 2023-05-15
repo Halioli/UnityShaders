@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MAT_PBR
-  m_Shader: {fileID: 4800000, guid: 029d784ab37c2954ba32e6589654dd28, type: 3}
+  m_Name: MAT_PostProcess
+  m_Shader: {fileID: 4800000, guid: 866a5c9895ce20145ab398132e2dd695, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -21,27 +21,14 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 82692846941fbc74e9bb1e7a3d64ae4c, type: 3}
+        m_Texture: {fileID: 2800000, guid: 42a709d77a379e348b9fbdb93f209267, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MetallicTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _NormalTex:
-        m_Texture: {fileID: 2800000, guid: a8bd27e5c6338314c959d7a3440a531a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SmoothnessTex:
+    - _PrePass:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - _Anisotropy: 0.5
-    - _MetallicVal: 0.01
-    - _NormalVal: 1.15
-    - _SmoothnessVal: 0.65
-    m_Colors:
-    - _AmbientCol: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    m_Floats: []
+    m_Colors: []
   m_BuildTextureStacks: []

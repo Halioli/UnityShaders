@@ -7,10 +7,10 @@ Shader "Unlit/SHDR_PBR"
         _NormalTex ("Normal", 2D) = "bump" {}
         _NormalVal ("Normal Mult", Range(0, 10)) = 1
         
-        _SmoothnessTex ("Smoothness", 2D) = "white" {}
+        _SmoothnessTex ("Smoothness", 2D) = "black" {}
         _SmoothnessVal ("Smoothness Mult", Range(0, 1)) = 1
         
-        _MetallicTex ("_Metallic", 2D) = "white" {}
+        _MetallicTex ("_Metallic", 2D) = "black" {}
         _MetallicVal ("Metallic Mult", Range(0, 1)) = 1
 
         _Anisotropy ("Anisotropy", Range(0, 1)) = 0
@@ -34,6 +34,7 @@ Shader "Unlit/SHDR_PBR"
 
             #include "UnityCG.cginc"
             #include "AutoLight.cginc"
+            #include "Lighting.cginc"
 
             struct appdata
             {
@@ -153,12 +154,12 @@ Shader "Unlit/SHDR_PBR"
                 float NdotL = max(0.0, dot(normalWS, lightDir));
                 float NdotH = max(0.0, dot(halfDir, normalWS));
                 float NdotV = max(0.0, dot(normalWS, viewDir));
-                float HdotT = max(0.0, dot(halfDir, i.tangentWS.xyz));
-                float HdotB = max(0.0, dot(halfDir, i.bitangentWS));
+                float HdotT = dot(halfDir, i.tangentWS.xyz);
+                float HdotB = dot(halfDir, i.bitangentWS);
 
                 // sampler PBR textures
-                float smoothness = tex2D(_SmoothnessTex, i.uv).r * _SmoothnessVal;
-                float metallic = tex2D(_MetallicTex, i.uv).r * _MetallicVal;
+                float smoothness = saturate(min(1 - _SmoothnessVal, 1 - tex2D(_SmoothnessTex, i.uv)).r);
+                float metallic = saturate(max(_MetallicVal, tex2D(_MetallicTex, i.uv)).r);
 
                 // distributions
                 float3 F0 = lerp(float3(0.04, 0.04, 0.04), albedo, metallic);
@@ -169,13 +170,13 @@ Shader "Unlit/SHDR_PBR"
                 float G = schlickBeckmannGAF(NdotV, smoothness) * schlickBeckmannGAF(NdotL, smoothness);
 
                 fixed4 col = float4(0, 0, 0, 1);
-                fixed3 lightValue = max(0.0, dot(normalWS, _WorldSpaceLightPos0));
+                fixed3 lightValue = max(0.0, dot(normalWS, lightDir)) * _LightColor0.rgb;
                 lightValue += _AmbientCol;
 
                 float3 diffuse = albedo * (1 - F) * (1 - metallic);
                 float3 specular = G * D * F / (4 * NdotV * NdotL);
 
-                col.rgb = saturate(diffuse + saturate(specular)) * lightValue;
+                col.rgb = float4(saturate((diffuse + saturate(specular)) * lightValue), 1);
 
                 return col;
             }
