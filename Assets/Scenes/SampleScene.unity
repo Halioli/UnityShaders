@@ -1225,7 +1225,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.14489143, g: 0.49124175, b: 0.8301887, a: 0}
+  m_BackGroundColor: {r: 0.102171585, g: 0.3164543, b: 0.5283019, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1285,7 +1285,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69c9e3a82d4d4e24a9c5200b0753ec66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rimlightColor: {r: 1, g: 1, b: 1, a: 1}
+  blurSize: 0.05
+  shader: {fileID: 4800000, guid: 866a5c9895ce20145ab398132e2dd695, type: 3}
+  renderers: []
   camEvent: 11
+  mat: {fileID: 2100000, guid: e81cb2b220294c34b83d6b62869bf1b7, type: 2}
 --- !u!1 &1001936714
 GameObject:
   m_ObjectHideFlags: 0
