@@ -163,8 +163,10 @@ public class CommonBuffer : MonoBehaviour
         cb.GetTemporaryRT(glowBuffer, GlowRTD, FilterMode.Trilinear);
         cb.Blit(maskBuffer, glowBuffer, mat, SHADER_PASS_BLUR);
 
+        cb.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
+
         //mat.SetTexture("_Main", );
-        cb.Blit(mainBuffer, BuiltinRenderTextureType.CameraTarget, mat, SHADER_PASS_ADDITIVE);
+        cb.Blit(glowBuffer, BuiltinRenderTextureType.CameraTarget, mat, SHADER_PASS_ADDITIVE);
 
         cb.ReleaseTemporaryRT(maskBuffer);
         cb.ReleaseTemporaryRT(glowBuffer);

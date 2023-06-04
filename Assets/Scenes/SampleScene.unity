@@ -1290,7 +1290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae4ee1abd373ab4e986ba256138051b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rimlightColor: {r: 1, g: 1, b: 1, a: 1}
+  rimlightColor: {r: 1, g: 0, b: 0, a: 1}
   blurSize: 30
   mipLvl: 4
   shader: {fileID: 4800000, guid: 866a5c9895ce20145ab398132e2dd695, type: 3}
